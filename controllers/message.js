@@ -75,6 +75,11 @@ const AppError = require('./../utils/appError');
 //   next();
 // };
 
+exports.setUserId = (req, res, next) => {
+  if (!req.body.user) req.body.user = req.user.id;
+  next();
+}
+
 exports.getAllMessages = factory.getAll(Message);
 exports.getMessage = factory.getOne(Message
   /*,

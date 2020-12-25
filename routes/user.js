@@ -1,8 +1,11 @@
 const express = require('express');
-const userController = require('./../controllers/user');
-const authController = require('./../controllers/auth');
+const userController = require('../controllers/user');
+const authController = require('../controllers/auth');
+const messageRouter = require('../routes/message');
 
 const router = express.Router();
+
+// router.use('/:userId/messages', messageRouter);
 
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
@@ -24,7 +27,7 @@ router.patch(
 );
 router.delete('/deleteMe', userController.deleteMe);
 
-router.use(authController.restrictTo('admin'));
+router.use(authController.restrictTo('admin', 'user')); //TODO:remove user
 
 router
   .route('/')
