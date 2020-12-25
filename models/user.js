@@ -14,9 +14,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     trim: true,
+    lowercase: true,
     minlength: [3, 'Username should be more than 2 characters'],
-    required: true
-
+    // required: [true, "Username is required"]
   },
   messages: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -91,7 +91,7 @@ userSchema.pre(/^find/, function (next) {
     active: {
       $ne: false
     }
-  });
+  }).select('-__v');
   next();
 });
 
